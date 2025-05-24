@@ -2,45 +2,36 @@ import java.util.Scanner;
 
 public class Session03_1 {
     public static void main(String[] args) {
-        //Input
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Tên khách hàng: ");
-        String name = sc.nextLine();
-
-        System.out.println("Tên sản phẩm: ");
-        String product = sc.nextLine();
-
-        System.out.println("Giá sản phẩm: ");
-        double price = sc.nextInt();
-
+        //Input
+        System.out.println("Nhập tên khách hàng: ");
+        String customerName = sc.nextLine();
+        System.out.println("Nhập tên sản phẩm: ");
+        String productName = sc.nextLine();
+        System.out.println("Nhập giá sản phẩm: ");
+        float price = Float.parseFloat(sc.nextLine());
         System.out.println("Số lượng mua: ");
-        double quantity = sc.nextInt();
+        float quantity = Float.parseFloat(sc.nextLine());
+        System.out.println("Khách hàng có thẻ thành viên hay không?(true/false): ");
+        boolean isMember = Boolean.parseBoolean(sc.nextLine());
 
-        // Tính toán
-        double thanhtien = price * quantity;
-        double giamgia = 0;
-
-        //Nếu là thành viên giảm 10%
-        System.out.println("Khách có thẻ thành viên hay không [ t (true)/ f (false)]: ");
-        String member = sc.next();
-        if (member.equals("t")) {
-            giamgia = 0.1 * thanhtien;
-        }
-        double tiensaugiamgia = thanhtien - giamgia;
-        double VAT = 0.08 * thanhtien;
-        double tongtienthanhtoan = tiensaugiamgia + VAT;
+        //thực hiện tính:
+        float amount = price * quantity;
+        float memberDiscount = isMember ? (0.1F * amount) : 0;
+        float vat = 0.08F * amount;
+        float totalAmount = amount - memberDiscount + vat;
 
         //output
-        System.out.printf("Khách hàng: %s%n " +
-                        "Sản phẩm:%s%n " +
-                        "Giá: %.0f%n " +
-                        "Số lượng:%f%n " +
-                        "Thành tiền:%.0f%n " +
-                        "Giảm giá:%.0f%n " +
-                        "Tiền VAT:%.0f%n " +
-                        "Tổng thanh toán:%.0f%n ",
-                name, product, price, quantity, thanhtien, giamgia, VAT, tongtienthanhtoan);
+        System.out.println("Khách hàng: " + customerName);
+        System.out.println("Sản phẩm : " + productName);
+        System.out.println("Số lượng: " + quantity);
+        System.out.printf("Đơn giá: %,10.2f VND %n", price);
+        System.out.printf("Thành tiền: %,10.2f VND %n", amount);
+        System.out.printf("Giảm giá thành viên (10%%): %,10.2f VND %n", memberDiscount);
+        System.out.printf("Tiền VAT (8%%): %,10.2f VND %n", vat);
+        System.out.printf("Tổng thanh toán: %,10.2f VND %n", totalAmount);
+
         sc.close();
     }
 }
